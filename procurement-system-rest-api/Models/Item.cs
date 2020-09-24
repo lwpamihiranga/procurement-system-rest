@@ -12,6 +12,6 @@ namespace procurement_system_rest_api.Models
         public double ItemPrice { get; set; }
         public string Description { get; set; }
         public string UnitOfMeasuring { get; set; }
-        // add suppliers list below
+        public List<Supplier> Suppliers { get; set; }
     }
 }
