@@ -8,7 +8,7 @@ namespace procurement_system_rest_api.Models
     public class PurchaseRequisition
     {
         public int RequisitionNo { get; set; }
-        public string SiteManagerId { get; set; }
+        public SiteManager SiteManager { get; set; }   // string SiteManagerId -> SiteManager SiteManger
         public DateTime CurrentDate { get; set; }
         public string SupplierCode { get; set; }
         public string CompanyName { get; set; }
