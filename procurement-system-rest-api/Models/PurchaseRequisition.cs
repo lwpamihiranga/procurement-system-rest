@@ -10,8 +10,8 @@ namespace procurement_system_rest_api.Models
         public int RequisitionNo { get; set; }
         public SiteManager SiteManager { get; set; }   // string SiteManagerId -> SiteManager SiteManger
         public DateTime CurrentDate { get; set; }
-        public string SupplierCode { get; set; }
-        public string CompanyName { get; set; }
+        public Supplier Supplier { get; set; } //string SupplierCode - > Supplier Supplier  
+       //public string CompanyName { get; set; }  //include in Supplier model
         public string ShippingAddress { get; set; }
         public string SiteName { get; set; }
         public DateTime DeliverBefore { get; set; }

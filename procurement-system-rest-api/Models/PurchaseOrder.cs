@@ -9,13 +9,13 @@ namespace procurement_system_rest_api.Models
     {
         public int OrderReference { get; set; }
         public SiteManager SiteManager { get; set; }     // string SiteManagerName -> SiteManager SiteManager
-        public DateTime CurrentDate { get; set; } // Date  ->  DateTime
-        public string SupplierCode { get; set; }
-        public string SupplierName { get; set; }
-        public string SupplierCompany { get; set; }
+        public DateTime CurrentDate { get; set; }   // Date  ->  DateTime
+        public Supplier Supplier { get; set; }          //string SupplierCode  ->  Supplier Supplier
+        //public string SupplierName { get; set; }      //include in Supplier
+       // public string SupplierCompany { get; set; }   //include in supplier
         public string ShippingAddress { get; set; }
         public string ApprovedBy { get; set; }
-        public string SiteName { get; set; }
+        public Site Site { get; set; }    //string SiteName ->  Site Site 
         public DateTime DeliverBefor { get; set; } // Date -> DateTime
         public List<Item> Items { get; set; }
         public double DeliveryCost { get; set; }

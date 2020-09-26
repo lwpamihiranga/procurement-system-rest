@@ -9,11 +9,11 @@ namespace procurement_system_rest_api.Models
     {
         public int ReceiptId { get; set; }
         public string OrderReference { get; set; }
-        public string SupplierName { get; set; }
-        public string SupplierCompany { get; set; }
-        public string SiteName { get; set; }
+        public Supplier Supplier { get; set; }    //string SupplierName -> Supplier Supplier
+        //public string SupplierCompany { get; set; } //include in Supplier
+        public Site Site { get; set; }      //string SiteName ->  Site Site 
         public List<Item> Items { get; set; }
-        public string DeliveryAddress { get; set; }
+        public Delivery Delivery { get; set; }   //string DeliveryAddress  ->   Delivery Delivery
         public DateTime DateDelivered { get; set; } //Data -> Datetime
     }
 }
