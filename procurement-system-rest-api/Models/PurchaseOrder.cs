@@ -8,7 +8,7 @@ namespace procurement_system_rest_api.Models
     public class PurchaseOrder
     {
         public int OrderReference { get; set; }
-        public string SiteManagerName { get; set; }
+        public SiteManager SiteManager { get; set; }     // string SiteManagerName -> SiteManager SiteManager
         public DateTime CurrentDate { get; set; } // Date  ->  DateTime
         public string SupplierCode { get; set; }
         public string SupplierName { get; set; }
