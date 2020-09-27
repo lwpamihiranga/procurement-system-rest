@@ -8,9 +8,9 @@ namespace procurement_system_rest_api.Models
     public class Invoice
     {
         public string InvoiceId { get; set; }
-        public string GoodsReceiptId { get; set; }
-        public string SupplierName { get; set; }
-        public string SupplierCompany { get; set; }
+        public GoodsReceipt GoodsReceipt { get; set; } //string GoodsReceiptId -> GoodsReceipt GoodsReceipt
+        public Supplier Supplier { get; set; }    //string SupplierName -> Supplier Supplier
+       // public string SupplierCompany { get; set; }   //include in supplier model
         public string CreatedById { get; set; }
         public string CreatedByName { get; set; }
         public DateTime InvoiceDate { get; set; } // Date -> Datetime
