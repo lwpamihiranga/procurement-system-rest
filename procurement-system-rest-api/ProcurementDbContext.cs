@@ -12,5 +12,6 @@ namespace procurement_system_rest_api
         public ProcurementDbContext(DbContextOptions<ProcurementDbContext> options) : base(options) { }
 
         public DbSet<SiteManager> SiteManagers {get; set;}
+        public DbSet<Site> Sites { get; set; }
     }
 }
