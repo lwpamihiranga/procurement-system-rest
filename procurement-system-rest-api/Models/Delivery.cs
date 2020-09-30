@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace procurement_system_rest_api.Models
 {
     public class Delivery
     {
+        [Key]
         public string DeliveryId { get; set; }
         public string DeliveryMethod { get; set; }
         public bool OnSiteDelivery { get; set; } //Boolean -> bool

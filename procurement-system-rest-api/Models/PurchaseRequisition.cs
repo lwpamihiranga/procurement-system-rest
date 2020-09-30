@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace procurement_system_rest_api.Models
 {
     public class PurchaseRequisition
     {
+        [Key]
         public int RequisitionNo { get; set; }
         public SiteManager SiteManager { get; set; }   // string SiteManagerId -> SiteManager SiteManger
         public DateTime CurrentDate { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace procurement_system_rest_api.Models
 {
     public class Supplier
     {
+        [Key]
         public string SupplierCode { get; set; }
         public string CompanyName { get; set; }
         public string SupplierName { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace procurement_system_rest_api.Models
 {
     public class PurchaseOrder
     {
+        [Key]
         public int OrderReference { get; set; }
         public SiteManager SiteManager { get; set; }     // string SiteManagerName -> SiteManager SiteManager
         public DateTime CurrentDate { get; set; }   // Date  ->  DateTime

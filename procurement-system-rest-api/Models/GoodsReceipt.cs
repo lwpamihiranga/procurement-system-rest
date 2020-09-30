@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace procurement_system_rest_api.Models
 {
     public class GoodsReceipt
     {
+        [Key]
         public int ReceiptId { get; set; }
         public string OrderReference { get; set; }
         public Supplier Supplier { get; set; }    //string SupplierName -> Supplier Supplier
