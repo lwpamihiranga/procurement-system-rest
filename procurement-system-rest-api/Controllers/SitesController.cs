@@ -23,16 +23,16 @@ namespace procurement_system_rest_api.Controllers
 
         // GET: api/Sites
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Site>>> GetSite()
+        public async Task<ActionResult<IEnumerable<Site>>> GetSites()
         {
-            return await _context.Site.ToListAsync();
+            return await _context.Sites.ToListAsync();
         }
 
         // GET: api/Sites/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Site>> GetSite(string id)
         {
-            var site = await _context.Site.FindAsync(id);
+            var site = await _context.Sites.FindAsync(id);
 
             if (site == null)
             {
@@ -80,7 +80,7 @@ namespace procurement_system_rest_api.Controllers
         [HttpPost]
         public async Task<ActionResult<Site>> PostSite(Site site)
         {
-            _context.Site.Add(site);
+            _context.Sites.Add(site);
             try
             {
                 await _context.SaveChangesAsync();
@@ -104,13 +104,13 @@ namespace procurement_system_rest_api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Site>> DeleteSite(string id)
         {
-            var site = await _context.Site.FindAsync(id);
+            var site = await _context.Sites.FindAsync(id);
             if (site == null)
             {
                 return NotFound();
             }
 
-            _context.Site.Remove(site);
+            _context.Sites.Remove(site);
             await _context.SaveChangesAsync();
 
             return site;
@@ -118,7 +118,7 @@ namespace procurement_system_rest_api.Controllers
 
         private bool SiteExists(string id)
         {
-            return _context.Site.Any(e => e.SiteCode == id);
+            return _context.Sites.Any(e => e.SiteCode == id);
         }
     }
 }
