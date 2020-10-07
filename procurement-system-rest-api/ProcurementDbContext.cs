@@ -13,5 +13,12 @@ namespace procurement_system_rest_api
 
         public DbSet<SiteManager> SiteManagers {get; set;}
         public DbSet<Site> Sites { get; set; }
+        public DbSet<ManagementStaff> ManagementStaff { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }
