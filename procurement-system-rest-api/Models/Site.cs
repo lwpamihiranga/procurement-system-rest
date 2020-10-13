@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace procurement_system_rest_api.Models
 {
@@ -14,7 +10,7 @@ namespace procurement_system_rest_api.Models
         public SiteManager SiteManager { get; set; } // string SiteManagerId -> SiteManager SiteManager
         public string SiteAddress { get; set; }
         public string Description { get; set; }
-        public string ConstructionPeriod { get; set; }
+        public string ConstructionPeriod { get; set; } // not good to have this. instead end date can be used
         public string SiteOfficeNo { get; set; }
     }
 }
