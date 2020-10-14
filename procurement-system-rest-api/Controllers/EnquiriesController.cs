@@ -26,7 +26,7 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Enquiry>>> GetEnquiries()
         {
-            return await _context.Enquiries.ToListAsync();
+            return await _context.Enquiries.Include(e => e.OrderReference).Include(e => e.SiteManager).ToListAsync();
         }
 
         // GET: api/Enquiries/5

@@ -26,7 +26,7 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Delivery>>> GetDeliveries()
         {
-            return await _context.Deliveries.ToListAsync();
+            return await _context.Deliveries.Include(e => e.PurchaseOrder).Include(e => e.Site).ToListAsync();
         }
 
         // GET: api/Deliveries/5

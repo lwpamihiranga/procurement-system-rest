@@ -26,7 +26,7 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Payment>>> GetPayment()
         {
-            return await _context.Payment.ToListAsync();
+            return await _context.Payment.Include(e => e.Invoice).ToListAsync();
         }
 
         // GET: api/Payments/5

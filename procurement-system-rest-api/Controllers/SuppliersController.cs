@@ -25,7 +25,7 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Supplier>>> GetSuppliers()
         {
-            return await _context.Supplier.ToListAsync();
+            return await _context.Supplier.Include(e => e.ItemSuppliers).ThenInclude(e => e.Item).ToListAsync();
         }
 
         // GET: api/Suppliers/5
