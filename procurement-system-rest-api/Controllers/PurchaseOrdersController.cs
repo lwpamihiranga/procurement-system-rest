@@ -26,7 +26,12 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrders()
         {
-            return await _context.PurchaseOrders.Include(e => e.PurchaseOrderItems).ToListAsync();
+            return await _context.PurchaseOrders
+                        .Include(e => e.PurchaseOrderItems)
+                        .Include(e => e.SiteManager)
+                        .Include(e => e.Supplier)
+                        .Include(e => e.ApprovedBy)
+                        .ToListAsync();
         }
 
         // GET: api/PurchaseOrders/5

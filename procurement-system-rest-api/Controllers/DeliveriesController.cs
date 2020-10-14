@@ -26,7 +26,7 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Delivery>>> GetDeliveries()
         {
-            return await _context.Deliveries.ToListAsync();
+            return await _context.Deliveries.Include(e => e.PurchaseOrder).Include(e => e.Site).ToListAsync();
         }
 
         // GET: api/Deliveries/5
@@ -81,21 +81,33 @@ namespace procurement_system_rest_api.Controllers
         [HttpPost]
         public async Task<ActionResult<Delivery>> PostDelivery(DeliveryDTO deliveryDTO)
         {
-            PurchaseOrder purchaseOrder = _context.PurchaseOrders.FirstOrDefault(e => e.OrderReference == deliveryDTO.PurchaseOrder);
+            PurchaseOrder purchaseOrder = _context.PurchaseOrders.Include(e => e.Supplier).FirstOrDefault(e => e.OrderReference == deliveryDTO.PurchaseOrder);
             Site site = _context.Sites.FirstOrDefault(e => e.SiteCode == deliveryDTO.SiteCode);
 
             Delivery delivery = new Delivery
             {
+                DeliveryId = deliveryDTO.DeliveryId,
                 DeliveryMethod = deliveryDTO.DeliveryMethod,
                 OnSiteDelivery = true,
                 DeliveryStatus = deliveryDTO.DeliveryStatus,
-                PayableAmount = deliveryDTO.PayableAmount,
+                PayableAmount = purchaseOrder.TotalCost,
                 IsFullDelivery = true,
                 PurchaseOrder = purchaseOrder,
                 Site = site
             };
 
+            GoodsReceipt goodsReceipt = new GoodsReceipt
+            {
+                PurchaseOrder = purchaseOrder,
+                Supplier = purchaseOrder.Supplier,
+                Site = purchaseOrder.Site,
+                Delivery = delivery,
+                DateDelivered = DateTime.UtcNow 
+            };
+
             _context.Deliveries.Add(delivery);
+            _context.GoodsReceipt.Add(goodsReceipt);
+
             try
             {
                 await _context.SaveChangesAsync();

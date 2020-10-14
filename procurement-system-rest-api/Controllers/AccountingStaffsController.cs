@@ -12,48 +12,48 @@ namespace procurement_system_rest_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SuppliersController : ControllerBase
+    public class AccountingStaffsController : ControllerBase
     {
         private readonly ProcurementDbContext _context;
 
-        public SuppliersController(ProcurementDbContext context)
+        public AccountingStaffsController(ProcurementDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Suppliers
+        // GET: api/AccountingStaffs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Supplier>>> GetSuppliers()
+        public async Task<ActionResult<IEnumerable<AccountingStaff>>> GetAccountingStaff()
         {
-            return await _context.Supplier.Include(e => e.ItemSuppliers).ThenInclude(e => e.Item).ToListAsync();
+            return await _context.AccountingStaff.Include(e => e.InvoicesHandled).ToListAsync();
         }
 
-        // GET: api/Suppliers/5
+        // GET: api/AccountingStaffs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Supplier>> GetSupplier(string id)
+        public async Task<ActionResult<AccountingStaff>> GetAccountingStaff(string id)
         {
-            var supplier = await _context.Supplier.FindAsync(id);
+            var accountingStaff = await _context.AccountingStaff.FindAsync(id);
 
-            if (supplier == null)
+            if (accountingStaff == null)
             {
                 return NotFound();
             }
 
-            return supplier;
+            return accountingStaff;
         }
 
-        // PUT: api/Suppliers/5
+        // PUT: api/AccountingStaffs/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSupplier(string id, Supplier supplier)
+        public async Task<IActionResult> PutAccountingStaff(string id, AccountingStaff accountingStaff)
         {
-            if (id != supplier.SupplierCode)
+            if (id != accountingStaff.StaffId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(supplier).State = EntityState.Modified;
+            _context.Entry(accountingStaff).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace procurement_system_rest_api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SupplierExists(id))
+                if (!AccountingStaffExists(id))
                 {
                     return NotFound();
                 }
@@ -74,20 +74,20 @@ namespace procurement_system_rest_api.Controllers
             return NoContent();
         }
 
-        // POST: api/Suppliers
+        // POST: api/AccountingStaffs
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Supplier>> PostSupplier(Supplier supplier)
+        public async Task<ActionResult<AccountingStaff>> PostAccountingStaff(AccountingStaff accountingStaff)
         {
-            _context.Supplier.Add(supplier);
+            _context.AccountingStaff.Add(accountingStaff);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (SupplierExists(supplier.SupplierCode))
+                if (AccountingStaffExists(accountingStaff.StaffId))
                 {
                     return Conflict();
                 }
@@ -97,28 +97,28 @@ namespace procurement_system_rest_api.Controllers
                 }
             }
 
-            return CreatedAtAction("GetSupplier", new { id = supplier.SupplierCode }, supplier);
+            return CreatedAtAction("GetAccountingStaff", new { id = accountingStaff.StaffId }, accountingStaff);
         }
 
-        // DELETE: api/Suppliers/5
+        // DELETE: api/AccountingStaffs/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Supplier>> DeleteSupplier(string id)
+        public async Task<ActionResult<AccountingStaff>> DeleteAccountingStaff(string id)
         {
-            var supplier = await _context.Supplier.FindAsync(id);
-            if (supplier == null)
+            var accountingStaff = await _context.AccountingStaff.FindAsync(id);
+            if (accountingStaff == null)
             {
                 return NotFound();
             }
 
-            _context.Supplier.Remove(supplier);
+            _context.AccountingStaff.Remove(accountingStaff);
             await _context.SaveChangesAsync();
 
-            return supplier;
+            return accountingStaff;
         }
 
-        private bool SupplierExists(string id)
+        private bool AccountingStaffExists(string id)
         {
-            return _context.Supplier.Any(e => e.SupplierCode == id);
+            return _context.AccountingStaff.Any(e => e.StaffId == id);
         }
     }
 }

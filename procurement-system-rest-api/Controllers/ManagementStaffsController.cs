@@ -25,7 +25,7 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ManagementStaff>>> GetManagementStaff()
         {
-            return await _context.ManagementStaff.ToListAsync();
+            return await _context.ManagementStaff.Include(e => e.OrdersApproved).ToListAsync();
         }
 
         // GET: api/ManagementStaffs/5
