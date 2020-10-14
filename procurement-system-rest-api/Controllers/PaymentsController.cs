@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,52 +13,48 @@ namespace procurement_system_rest_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SitesController : ControllerBase
+    public class PaymentsController : ControllerBase
     {
         private readonly ProcurementDbContext _context;
 
-        public SitesController(ProcurementDbContext context)
+        public PaymentsController(ProcurementDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Sites
+        // GET: api/Payments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Site>>> GetSites()
+        public async Task<ActionResult<IEnumerable<Payment>>> GetPayment()
         {
-            return await _context.Sites.Include(e => e.SiteManager).ToListAsync();
+            return await _context.Payment.ToListAsync();
         }
 
-        // GET: api/Sites/5
+        // GET: api/Payments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Site>> GetSite(string id)
+        public async Task<ActionResult<Payment>> GetPayment(string id)
         {
-            var site = await _context.Sites.FindAsync(id);
+            var payment = await _context.Payment.FindAsync(id);
 
-            if (site == null)
+            if (payment == null)
             {
                 return NotFound();
             }
 
-            return site;
+            return payment;
         }
 
-        // PUT: api/Sites/5
+        // PUT: api/Payments/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSite(string id, Site site)
+        public async Task<IActionResult> PutPayment(string id, Payment payment)
         {
-            if (id != site.SiteCode)
+            if (id != payment.PaymentId)
             {
                 return BadRequest();
             }
 
-            //_context.Entry(site).State = EntityState.Modified;
-
-            Site Site = _context.Sites.FirstOrDefault(e => e.SiteCode == id);
-            SiteManager SiteManager = _context.SiteManagers.FirstOrDefault(e => e.StaffId == site.SiteManager.StaffId);
-            Site.SiteManager = SiteManager;
+            _context.Entry(payment).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +62,7 @@ namespace procurement_system_rest_api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SiteExists(id))
+                if (!PaymentExists(id))
                 {
                     return NotFound();
                 }
@@ -79,32 +75,34 @@ namespace procurement_system_rest_api.Controllers
             return NoContent();
         }
 
-        // POST: api/Sites
+        // POST: api/Payments
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Site>> PostSite(SiteDTO siteDTO)
+        public async Task<ActionResult<Payment>> PostPayment(PaymentDTO paymentDTO)
         {
-            SiteManager siteManager = _context.SiteManagers.FirstOrDefault(e => e.StaffId == siteDTO.SiteManagerId);
+            Invoice invoice = _context.Invoice.FirstOrDefault(e => e.InvoiceId == paymentDTO.Invoice);
 
-            Site site = new Site
+            Payment payment = new Payment
             {
-                SiteCode = siteDTO.SiteCode,
-                SiteName = siteDTO.SiteName,
-                SiteAddress = siteDTO.SiteAddress,
-                Description = siteDTO.Description,
-                SiteOfficeNo = siteDTO.SiteOfficeNo,
-                SiteManager = siteManager
+                PaymentId = paymentDTO.PaymentId,
+                PaymentMethod = paymentDTO.PaymentMethod,
+                Invoice = invoice,
+                DueDate = paymentDTO.DueDate,
+                PaidDate = paymentDTO.PaidDate,
+                PaymentStatus = paymentDTO.PaymentStatus,
+                PaidAmount = paymentDTO.PaidAmount,
+                Description = paymentDTO.Description
             };
 
-            _context.Sites.Add(site);
+            _context.Payment.Add(payment);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (SiteExists(site.SiteCode))
+                if (PaymentExists(payment.PaymentId))
                 {
                     return Conflict();
                 }
@@ -114,28 +112,28 @@ namespace procurement_system_rest_api.Controllers
                 }
             }
 
-            return CreatedAtAction("GetSite", new { id = site.SiteCode }, site);
+            return CreatedAtAction("GetPayment", new { id = payment.PaymentId }, payment);
         }
 
-        // DELETE: api/Sites/5
+        // DELETE: api/Payments/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Site>> DeleteSite(string id)
+        public async Task<ActionResult<Payment>> DeletePayment(string id)
         {
-            var site = await _context.Sites.FindAsync(id);
-            if (site == null)
+            var payment = await _context.Payment.FindAsync(id);
+            if (payment == null)
             {
                 return NotFound();
             }
 
-            _context.Sites.Remove(site);
+            _context.Payment.Remove(payment);
             await _context.SaveChangesAsync();
 
-            return site;
+            return payment;
         }
 
-        private bool SiteExists(string id)
+        private bool PaymentExists(string id)
         {
-            return _context.Sites.Any(e => e.SiteCode == id);
+            return _context.Payment.Any(e => e.PaymentId == id);
         }
     }
 }

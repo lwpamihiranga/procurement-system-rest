@@ -8,7 +8,7 @@ namespace procurement_system_rest_api.Models
         [Key]
         public string PaymentId { get; set; }
         public string PaymentMethod { get; set; }
-        public string PurchaseOrderId { get; set; }
+        //public PurchaseOrder PurchaseOrder { get; set; }//public string PurchaseOrderId { get; set; }
         public Invoice Invoice { get; set; }   // string InvoiceId -> Invoice Invoice
         public DateTime DueDate { get; set; }  // Date -> Datetime
         public DateTime PaidDate { get; set; }  // Date -> Datetime
