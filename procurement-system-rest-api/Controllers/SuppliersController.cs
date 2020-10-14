@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,52 +12,48 @@ namespace procurement_system_rest_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SitesController : ControllerBase
+    public class SuppliersController : ControllerBase
     {
         private readonly ProcurementDbContext _context;
 
-        public SitesController(ProcurementDbContext context)
+        public SuppliersController(ProcurementDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Sites
+        // GET: api/Suppliers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Site>>> GetSites()
+        public async Task<ActionResult<IEnumerable<Supplier>>> GetSuppliers()
         {
-            return await _context.Sites.Include(e => e.SiteManager).ToListAsync();
+            return await _context.Supplier.ToListAsync();
         }
 
-        // GET: api/Sites/5
+        // GET: api/Suppliers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Site>> GetSite(string id)
+        public async Task<ActionResult<Supplier>> GetSupplier(string id)
         {
-            var site = await _context.Sites.FindAsync(id);
+            var supplier = await _context.Supplier.FindAsync(id);
 
-            if (site == null)
+            if (supplier == null)
             {
                 return NotFound();
             }
 
-            return site;
+            return supplier;
         }
 
-        // PUT: api/Sites/5
+        // PUT: api/Suppliers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSite(string id, Site site)
+        public async Task<IActionResult> PutSupplier(string id, Supplier supplier)
         {
-            if (id != site.SiteCode)
+            if (id != supplier.SupplierCode)
             {
                 return BadRequest();
             }
 
-            //_context.Entry(site).State = EntityState.Modified;
-
-            Site Site = _context.Sites.FirstOrDefault(e => e.SiteCode == id);
-            SiteManager SiteManager = _context.SiteManagers.FirstOrDefault(e => e.StaffId == site.SiteManager.StaffId);
-            Site.SiteManager = SiteManager;
+            _context.Entry(supplier).State = EntityState.Modified;
 
             try
             {
@@ -65,7 +61,7 @@ namespace procurement_system_rest_api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SiteExists(id))
+                if (!SupplierExists(id))
                 {
                     return NotFound();
                 }
@@ -78,20 +74,20 @@ namespace procurement_system_rest_api.Controllers
             return NoContent();
         }
 
-        // POST: api/Sites
+        // POST: api/Suppliers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Site>> PostSite(Site site)
+        public async Task<ActionResult<Supplier>> PostSupplier(Supplier supplier)
         {
-            _context.Sites.Add(site);
+            _context.Supplier.Add(supplier);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (SiteExists(site.SiteCode))
+                if (SupplierExists(supplier.SupplierCode))
                 {
                     return Conflict();
                 }
@@ -101,28 +97,28 @@ namespace procurement_system_rest_api.Controllers
                 }
             }
 
-            return CreatedAtAction("GetSite", new { id = site.SiteCode }, site);
+            return CreatedAtAction("GetSupplier", new { id = supplier.SupplierCode }, supplier);
         }
 
-        // DELETE: api/Sites/5
+        // DELETE: api/Suppliers/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Site>> DeleteSite(string id)
+        public async Task<ActionResult<Supplier>> DeleteSupplier(string id)
         {
-            var site = await _context.Sites.FindAsync(id);
-            if (site == null)
+            var supplier = await _context.Supplier.FindAsync(id);
+            if (supplier == null)
             {
                 return NotFound();
             }
 
-            _context.Sites.Remove(site);
+            _context.Supplier.Remove(supplier);
             await _context.SaveChangesAsync();
 
-            return site;
+            return supplier;
         }
 
-        private bool SiteExists(string id)
+        private bool SupplierExists(string id)
         {
-            return _context.Sites.Any(e => e.SiteCode == id);
+            return _context.Supplier.Any(e => e.SupplierCode == id);
         }
     }
 }

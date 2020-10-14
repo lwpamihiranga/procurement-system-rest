@@ -25,7 +25,7 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SiteManager>>> GetSiteManagers()
         {
-            return await _context.SiteManagers.ToListAsync();
+            return await _context.SiteManagers.Include(e => e.SiteList).ToListAsync();
         }
 
         // GET: api/SiteManagers/5

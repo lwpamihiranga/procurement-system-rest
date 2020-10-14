@@ -13,6 +13,7 @@ namespace procurement_system_rest_api
         public DbSet<PurchaseRequisition> PurchaseRequisitions { get; set; }
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Supplier> Supplier { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -51,6 +52,5 @@ namespace procurement_system_rest_api
                 .WithMany(i => i.PurchaseOrderItems)
                 .HasForeignKey(poi => poi.ItemId);
         }
-
     }
 }

@@ -81,6 +81,13 @@ namespace procurement_system_rest_api.Controllers
         public async Task<ActionResult<Item>> PostItem(Item item)
         {
             _context.Items.Add(item);
+
+            Supplier Supplier = _context.Supplier.FirstOrDefault(e => e.SupplierCode == item.SupplierCode);
+
+            ItemSuppliers itemSuppliers = new ItemSuppliers { Item = item, Supplier = Supplier };
+
+            _context.Add(itemSuppliers);
+            
             try
             {
                 await _context.SaveChangesAsync();
