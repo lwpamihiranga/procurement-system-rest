@@ -42,6 +42,8 @@ namespace procurement_system_rest_api
 
             app.UseHttpsRedirection();
 
+            app.UseCors("AllowEverything");
+
             app.UseRouting();
 
             app.UseAuthorization();
