@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace procurement_system_rest_api.Models
 {
@@ -15,5 +16,7 @@ namespace procurement_system_rest_api.Models
         public ICollection<ItemSuppliers> ItemSuppliers { get; set; }
         public ICollection<PurchaseRequisitionItems> PurchaseRequisitionItems { get; set; }
         public ICollection<PurchaseOrderItems> PurchaseOrderItems { get; set; }
+        [NotMapped]
+        public string SupplierCode { get; set; }
     }
 }

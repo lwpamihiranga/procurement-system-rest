@@ -18,7 +18,7 @@ namespace procurement_system_rest_api.Models
         // no point of having approved by string. shoul related with management staff
         public Site Site { get; set; }    //string SiteName ->  Site Site 
         public DateTime DeliverBefore { get; set; } // Date -> DateTime
-        public List<Item> Items { get; set; }
+        //public List<Item> Items { get; set; }
         public double DeliveryCost { get; set; }
         public double TotalCost { get; set; }
         public string OrderStatus { get; set; }

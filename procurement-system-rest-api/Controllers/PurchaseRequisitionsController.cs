@@ -81,8 +81,21 @@ namespace procurement_system_rest_api.Controllers
         [HttpPost]
         public async Task<ActionResult<PurchaseRequisition>> PostPurchaseRequisition(PurchaseRequisitionDTO purchaseRequisitionDTO)
         {
+            SiteManager siteManager = _context.SiteManagers.FirstOrDefault(e => e.StaffId == purchaseRequisitionDTO.SiteManagerId);
+            Supplier supplier = _context.Supplier.FirstOrDefault(e => e.SupplierCode == purchaseRequisitionDTO.SupplierCode);
+            Site site = _context.Sites.FirstOrDefault(e => e.SiteCode == purchaseRequisitionDTO.SiteCode);
+
             PurchaseRequisition purchaseRequisition = new PurchaseRequisition
             {
+                ShippingAddress = purchaseRequisitionDTO.ShippingAddress,
+                DeliverBefore = purchaseRequisitionDTO.DeliverBefore,
+                DeliveryCost = purchaseRequisitionDTO.DeliveryCost,
+                TotalCost = purchaseRequisitionDTO.TotalCost,
+                Status = purchaseRequisitionDTO.Status,
+                Comments = purchaseRequisitionDTO.Comments,
+                SiteManager = siteManager,
+                Supplier = supplier,
+                Site = site
             };
 
             foreach (string itemId in purchaseRequisitionDTO.ItemIds)
@@ -91,8 +104,6 @@ namespace procurement_system_rest_api.Controllers
 
                 _context.Set<PurchaseRequisitionItems>().Add(item);
             }
-
-         
 
             _context.PurchaseRequisitions.Add(purchaseRequisition);
             await _context.SaveChangesAsync();
