@@ -28,6 +28,7 @@ namespace procurement_system_rest_api
         {
             //services.AddDbContext<ProcurementDbContext>(opt => opt.UseInMemoryDatabase("ProcurementDb"));
             services.AddDbContext<ProcurementDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddCors(options => options.AddPolicy("AllowEverything", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
