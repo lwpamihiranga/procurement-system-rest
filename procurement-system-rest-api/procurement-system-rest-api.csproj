@@ -6,11 +6,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Compile Remove="Migrations\20201007072622_t1.cs" />
+    <Compile Remove="Migrations\20201007072622_t1.Designer.cs" />
+    <Compile Remove="Migrations\20201013063025_One.cs" />
+    <Compile Remove="Migrations\20201013063025_One.Designer.cs" />
+    <Compile Remove="Migrations\20201013070711_V1.cs" />
+    <Compile Remove="Migrations\20201013070711_V1.Designer.cs" />
+    <Compile Remove="Migrations\20201013070829_V2.cs" />
+    <Compile Remove="Migrations\20201013070829_V2.Designer.cs" />
+    <Compile Remove="Migrations\20201013075530_V3.cs" />
+    <Compile Remove="Migrations\20201013075530_V3.Designer.cs" />
+    <Compile Remove="Migrations\20201014050314_V4.cs" />
+    <Compile Remove="Migrations\20201014050314_V4.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
 

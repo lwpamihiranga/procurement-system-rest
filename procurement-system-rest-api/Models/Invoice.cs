@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace procurement_system_rest_api.Models
 {
     public class Invoice
     {
+        [Key]
         public string InvoiceId { get; set; }
         public GoodsReceipt GoodsReceipt { get; set; } //string GoodsReceiptId -> GoodsReceipt GoodsReceipt
         public Supplier Supplier { get; set; }    //string SupplierName -> Supplier Supplier
