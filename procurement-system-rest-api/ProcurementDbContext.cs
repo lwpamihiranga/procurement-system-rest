@@ -14,6 +14,9 @@ namespace procurement_system_rest_api
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Supplier> Supplier { get; set; }
+        public DbSet<Enquiry> Enquiries { get; set; }
+        public DbSet<Delivery> Deliveries { get; set; }
+        public DbSet<GoodsReceipt> GoodsReceipt { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
