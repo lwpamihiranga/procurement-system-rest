@@ -27,10 +27,12 @@ namespace procurement_system_rest_api.Controllers
         public async Task<ActionResult<IEnumerable<PurchaseOrder>>> GetPurchaseOrders()
         {
             return await _context.PurchaseOrders
-                        .Include(e => e.PurchaseOrderItems)
                         .Include(e => e.SiteManager)
                         .Include(e => e.Supplier)
                         .Include(e => e.ApprovedBy)
+                        .Include(e => e.Site)
+                        .Include(e => e.PurchaseOrderItems)
+                        .ThenInclude(e => e.Item)
                         .ToListAsync();
         }
 
@@ -38,7 +40,14 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PurchaseOrder>> GetPurchaseOrder(int id)
         {
-            var purchaseOrder = await _context.PurchaseOrders.FindAsync(id);
+            var purchaseOrder = await _context.PurchaseOrders
+                                    .Include(e => e.SiteManager)
+                                    .Include(e => e.Supplier)
+                                    .Include(e => e.ApprovedBy)
+                                    .Include(e => e.Site)
+                                    .Include(e => e.PurchaseOrderItems)
+                                    .ThenInclude(e => e.Item)
+                                    .FirstOrDefaultAsync(e => e.OrderReference == id);
 
             if (purchaseOrder == null)
             {
@@ -59,7 +68,10 @@ namespace procurement_system_rest_api.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(purchaseOrder).State = EntityState.Modified;
+            //_context.Entry(purchaseOrder).State = EntityState.Modified;
+            var existingOrder = _context.PurchaseOrders.Find(id);
+
+            existingOrder.OrderStatus = purchaseOrder.OrderStatus;
 
             try
             {
@@ -90,8 +102,6 @@ namespace procurement_system_rest_api.Controllers
             Supplier supplier = _context.Supplier.FirstOrDefault(e => e.SupplierCode == purchaseOrderDTO.SupplierCode);
             Site site = _context.Sites.FirstOrDefault(e => e.SiteCode == purchaseOrderDTO.SiteCode);
 
-        
-
             PurchaseOrder purchaseOrder = new PurchaseOrder
             {
                 ShippingAddress = purchaseOrderDTO.ShippingAddress,
@@ -111,9 +121,23 @@ namespace procurement_system_rest_api.Controllers
                 purchaseOrder.ApprovedBy = managementStaff;
             }
 
+            var itemMap = new Dictionary<string, int>();
+
             foreach (string itemId in purchaseOrderDTO.ItemIds)
             {
-                var item = new PurchaseOrderItems { ItemId = itemId, PurchaseOrder = purchaseOrder };
+                if (itemMap.ContainsKey(itemId))
+                {
+                    itemMap[itemId] = itemMap[itemId] + 1;
+                }
+                else
+                {
+                    itemMap.Add(itemId, 1);
+                }
+            }
+
+            for (int i = 0; i < itemMap.Count; i++)
+            {
+                var item = new PurchaseOrderItems { ItemId = itemMap.ElementAt(i).Key, PurchaseOrder = purchaseOrder, ItemCount = itemMap.ElementAt(i).Value };
 
                 _context.Set<PurchaseOrderItems>().Add(item);
             }

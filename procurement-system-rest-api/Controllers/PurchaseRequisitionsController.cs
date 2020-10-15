@@ -39,7 +39,13 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PurchaseRequisition>> GetPurchaseRequisition(int id)
         {
-            var purchaseRequisition = await _context.PurchaseRequisitions.FindAsync(id);
+            var purchaseRequisition = await _context.PurchaseRequisitions
+                                            .Include(e => e.SiteManager)
+                                            .Include(e => e.Supplier)
+                                            .Include(e => e.Site)
+                                            .Include(e => e.PurchaseRequisitionItems)
+                                            .ThenInclude(e => e.Item)
+                                            .FirstOrDefaultAsync(e => e.RequisitionNo == id);
 
             if (purchaseRequisition == null)
             {
@@ -60,7 +66,10 @@ namespace procurement_system_rest_api.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(purchaseRequisition).State = EntityState.Modified;
+            //_context.Entry(purchaseRequisition).State = EntityState.Modified;
+            var existingRequisition = _context.PurchaseRequisitions.Find(id);
+
+            existingRequisition.Status = purchaseRequisition.Status;
 
             try
             {
@@ -104,9 +113,22 @@ namespace procurement_system_rest_api.Controllers
                 Site = site
             };
 
+            var itemMap = new Dictionary<string, int>();
+
             foreach (string itemId in purchaseRequisitionDTO.ItemIds)
             {
-                var item = new PurchaseRequisitionItems { ItemId = itemId, PurchaseRequisition = purchaseRequisition };
+                if(itemMap.ContainsKey(itemId))
+                {
+                    itemMap[itemId] = itemMap[itemId] + 1;
+                } else
+                {
+                    itemMap.Add(itemId, 1);
+                }
+            }
+
+            for(int i = 0; i < itemMap.Count; i++)
+            {
+                var item = new PurchaseRequisitionItems { ItemId = itemMap.ElementAt(i).Key, PurchaseRequisition = purchaseRequisition, ItemCount = itemMap.ElementAt(i).Value };
 
                 _context.Set<PurchaseRequisitionItems>().Add(item);
             }
