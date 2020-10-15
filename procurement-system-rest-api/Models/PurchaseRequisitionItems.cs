@@ -6,5 +6,6 @@
         public PurchaseRequisition PurchaseRequisition { get; set; }
         public string ItemId { get; set; }
         public Item Item { get; set; }
+        public int ItemCount { get; set; }
     }
 }
