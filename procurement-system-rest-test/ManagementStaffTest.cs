@@ -1,0 +1,115 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using procurement_system_rest_api;
+using procurement_system_rest_api.Controllers;
+using procurement_system_rest_api.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace procurement_system_rest_test
+{
+    public class ManagementStaffTest: SeedDatabase
+    {
+        public ManagementStaffTest(): base(
+            new DbContextOptionsBuilder<ProcurementDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options)
+        { }
+
+        [Fact]
+        public async Task Can_get_all_ManagementStaff_in_database()
+        {
+            using (var context = new ProcurementDbContext(ContextOptions))
+            {
+                ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
+
+                var result = await managementStaffsController.GetManagementStaff();
+
+                var viewResult = Assert.IsType<ActionResult<IEnumerable<ManagementStaff>>>(result);
+                var model = Assert.IsType<List<ManagementStaff>>(viewResult.Value);
+
+                Assert.Equal(3, model.Count);
+            }
+        }
+
+        [Fact]
+        public async Task Can_get_ManagementStaff_By_Id()
+        {
+            using (var context = new ProcurementDbContext(ContextOptions))
+            {
+                ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
+
+                var result = await managementStaffsController.GetManagementStaff("EMP11");
+
+                var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
+                var model = Assert.IsType<ManagementStaff>(viewResult.Value);
+
+                Assert.Equal("EMP11", model.StaffId);
+            }
+        }
+
+        [Fact]
+        public async Task Should_not_return_ManagementStaff_when_unavailable()
+        {
+            using (var context = new ProcurementDbContext(ContextOptions))
+            {
+                ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
+
+                var result = await managementStaffsController.GetManagementStaff("EMP100");
+
+                var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
+                Assert.IsNotType<ManagementStaff>(viewResult.Value);
+                var response = Assert.IsType<NotFoundResult>(viewResult.Result);
+                Assert.Equal(404, response.StatusCode);
+            }
+        }
+
+        [Fact]
+        public async Task Cannot_add_ManagementStaff_when_it_already_exists()
+        {
+            using (var context = new ProcurementDbContext(ContextOptions))
+            {
+                ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
+
+                ManagementStaff managementStaff = new ManagementStaff { StaffId = "EMP11", FirstName = "FirstName", LastName = "LastName", MobileNo = "0718956874" };
+
+                try
+                {
+                    await managementStaffsController.PostManagementStaff(managementStaff);
+                }
+                catch (Exception exception)
+                {
+                    Assert.NotNull(exception);
+                    return;
+                }
+
+                Assert.True(false);
+            }
+        }
+
+        [Fact]
+        public async Task Can_delete_ManagementStaff_by_Id()
+        {
+            using (var context = new ProcurementDbContext(ContextOptions))
+            {
+                ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
+
+                var result = await managementStaffsController.DeleteManagementStaff("EMP11");
+
+                var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
+                var model = Assert.IsType<ManagementStaff>(viewResult.Value);
+
+                Assert.Equal("EMP11", model.StaffId);
+            }
+        }
+
+        [Fact]
+        public async Task Cannot_delete_ManagementStaff_when_it_not_existing()
+        {
+
+        }
+    }
+}

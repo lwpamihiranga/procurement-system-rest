@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "procurement-system-rest-api", "procurement-system-rest-api\procurement-system-rest-api.csproj", "{FDAEB79F-71FA-4A24-B0C1-4BA81D8C3123}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "procurement-system-rest-api", "procurement-system-rest-api\procurement-system-rest-api.csproj", "{FDAEB79F-71FA-4A24-B0C1-4BA81D8C3123}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "procurement-system-rest-test", "procurement-system-rest-test\procurement-system-rest-test.csproj", "{EF1874A6-BA10-4279-AF6A-31EC4215EB2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FDAEB79F-71FA-4A24-B0C1-4BA81D8C3123}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDAEB79F-71FA-4A24-B0C1-4BA81D8C3123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDAEB79F-71FA-4A24-B0C1-4BA81D8C3123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF1874A6-BA10-4279-AF6A-31EC4215EB2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF1874A6-BA10-4279-AF6A-31EC4215EB2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF1874A6-BA10-4279-AF6A-31EC4215EB2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF1874A6-BA10-4279-AF6A-31EC4215EB2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
