@@ -17,6 +17,7 @@ namespace procurement_system_rest_test
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options)
         { }
+
         [Fact]
         public async Task Can_get_all_SiteManager_in_database()
         {
