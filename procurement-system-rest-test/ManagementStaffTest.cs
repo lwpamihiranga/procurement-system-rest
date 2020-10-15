@@ -68,6 +68,24 @@ namespace procurement_system_rest_test
         }
 
         [Fact]
+        public async Task Can_add_new_ManagementStaff_when_it_not_existing()
+        {
+            using (var context = new ProcurementDbContext(ContextOptions))
+            {
+                ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
+
+                ManagementStaff managementStaff = new ManagementStaff { StaffId = "EMP14", FirstName = "FirstName", LastName = "LastName", MobileNo = "0718956874" };
+
+                var result = await managementStaffsController.PostManagementStaff(managementStaff);
+
+                var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
+                var actionResult = Assert.IsType<CreatedAtActionResult>(viewResult.Result);
+                var model = Assert.IsType<ManagementStaff>(actionResult.Value);
+                Assert.Equal("EMP14", model.StaffId);
+            }
+        }
+
+        [Fact]
         public async Task Cannot_add_ManagementStaff_when_it_already_exists()
         {
             using (var context = new ProcurementDbContext(ContextOptions))
@@ -109,7 +127,17 @@ namespace procurement_system_rest_test
         [Fact]
         public async Task Cannot_delete_ManagementStaff_when_it_not_existing()
         {
+            using (var context = new ProcurementDbContext(ContextOptions))
+            {
+                ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
 
+                var result = await managementStaffsController.DeleteManagementStaff("EMP100");
+
+                var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
+                Assert.IsNotType<ManagementStaff>(viewResult.Value);
+                var response = Assert.IsType<NotFoundResult>(viewResult.Result);
+                Assert.Equal(404, response.StatusCode);
+            }
         }
     }
 }
