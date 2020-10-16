@@ -111,6 +111,9 @@ namespace procurement_system_rest_test
                 var goodsReceipt1 = new GoodsReceipt { ReceiptId = 1, PurchaseOrder = order1, Supplier = supplier1, Site = site1, Delivery = delivery1 };
                 context.GoodsReceipt.Add(goodsReceipt1);
 
+                var invoice1 = new Invoice { InvoiceId = "INV001", NetAmount = 2000.00, Description = "Order 1 invoice", GoodsReceipt = goodsReceipt1, Supplier = supplier1, InvoiceStatus = "Payment Due" };
+                context.Invoice.Add(invoice1);
+
                 context.SaveChanges();
             }
         }

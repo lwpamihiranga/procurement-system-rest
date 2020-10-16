@@ -13,7 +13,7 @@ namespace procurement_system_rest_test
 {
     public class ManagementStaffTest: SeedDatabase
     {
-        public ManagementStaffTest(): base(
+        public ManagementStaffTest() : base(
             new DbContextOptionsBuilder<ProcurementDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options)
@@ -38,27 +38,31 @@ namespace procurement_system_rest_test
         [Fact]
         public async Task Can_get_ManagementStaff_By_Id()
         {
+            const string MANAGEMENT_STAFF_ID = "EMP11";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
 
-                var result = await managementStaffsController.GetManagementStaff("EMP11");
+                var result = await managementStaffsController.GetManagementStaff(MANAGEMENT_STAFF_ID);
 
                 var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
                 var model = Assert.IsType<ManagementStaff>(viewResult.Value);
 
-                Assert.Equal("EMP11", model.StaffId);
+                Assert.Equal(MANAGEMENT_STAFF_ID, model.StaffId);
             }
         }
 
         [Fact]
         public async Task Should_not_return_ManagementStaff_when_unavailable()
         {
+            const string MANAGEMENT_STAFF_ID = "EMP100";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
 
-                var result = await managementStaffsController.GetManagementStaff("EMP100");
+                var result = await managementStaffsController.GetManagementStaff(MANAGEMENT_STAFF_ID);
 
                 var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
                 Assert.IsNotType<ManagementStaff>(viewResult.Value);
@@ -111,27 +115,31 @@ namespace procurement_system_rest_test
         [Fact]
         public async Task Can_delete_ManagementStaff_by_Id()
         {
+            const string MANAGEMENT_STAFF_ID = "EMP11";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
 
-                var result = await managementStaffsController.DeleteManagementStaff("EMP11");
+                var result = await managementStaffsController.DeleteManagementStaff(MANAGEMENT_STAFF_ID);
 
                 var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
                 var model = Assert.IsType<ManagementStaff>(viewResult.Value);
 
-                Assert.Equal("EMP11", model.StaffId);
+                Assert.Equal(MANAGEMENT_STAFF_ID, model.StaffId);
             }
         }
 
         [Fact]
         public async Task Cannot_delete_ManagementStaff_when_it_not_existing()
         {
+            const string MANAGEMENT_STAFF_ID = "EMP100";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
 
-                var result = await managementStaffsController.DeleteManagementStaff("EMP100");
+                var result = await managementStaffsController.DeleteManagementStaff(MANAGEMENT_STAFF_ID);
 
                 var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
                 Assert.IsNotType<ManagementStaff>(viewResult.Value);
