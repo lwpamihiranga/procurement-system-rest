@@ -39,7 +39,9 @@ namespace procurement_system_rest_test
                 context.AccountingStaff.Add(new AccountingStaff { StaffId = "EMP22", FirstName = "FirstName", LastName = "LastName", MobileNo = "0718956874" });
                 context.AccountingStaff.Add(new AccountingStaff { StaffId = "EMP23", FirstName = "FirstName", LastName = "LastName", MobileNo = "0718956874" });
 
-                context.Sites.Add(new Site { SiteCode = "SITE001", SiteName = "SLIIT Campus Site", SiteAddress = "Malabe", Description = "Malabe SLIIT Campus working site", SiteOfficeNo = "0115489657", SiteManager = manager1 });
+                var site1 = new Site { SiteCode = "SITE001", SiteName = "SLIIT Campus Site", SiteAddress = "Malabe", Description = "Malabe SLIIT Campus working site", SiteOfficeNo = "0115489657", SiteManager = manager1 };
+
+                context.Sites.Add(site1);
 
                 var supplier1 = new Supplier { SupplierCode = "SP1", SupplierName = "MAS Holdings", Address1 = "Colombo 3", CompanyNo = "011548795", MobileNo = "077485698", Email = "supplier@mas.com" };
 
@@ -59,6 +61,15 @@ namespace procurement_system_rest_test
                 context.Add(itemSupplier1);
                 context.Add(itemSupplier2);
                 context.Add(itemSupplier3);
+
+                var requisition1 = new PurchaseRequisition { RequisitionNo = 1, ShippingAddress = "Malabe", TotalCost = 2000.00, Status = "Pending", SiteManager = manager1, Supplier = supplier1, Site = site1 };
+                context.PurchaseRequisitions.Add(requisition1);
+                var requisitionItem1 = new PurchaseRequisitionItems { Item = item1, PurchaseRequisition = requisition1, ItemCount = 3 };
+                var requisitionItem2 = new PurchaseRequisitionItems { Item = item2, PurchaseRequisition = requisition1, ItemCount = 2 };
+                var requisitionItem3 = new PurchaseRequisitionItems { Item = item3, PurchaseRequisition = requisition1, ItemCount = 1 };
+                context.Add(requisitionItem1);
+                context.Add(requisitionItem2);
+                context.Add(requisitionItem3);
 
                 context.SaveChanges();
             }
