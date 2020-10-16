@@ -33,29 +33,35 @@ namespace procurement_system_rest_test
                 Assert.Equal(3, model.Count);
             }
         }
+
         [Fact]
         public async Task Can_get_SiteManager_By_Id()
         {
+            const string SITE_MANAGER_ID = "EMP1";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 SiteManagersController siteManagersController = new SiteManagersController(context);
 
-                var result = await siteManagersController.GetSiteManager("EMP1");
+                var result = await siteManagersController.GetSiteManager(SITE_MANAGER_ID);
 
                 var viewResult = Assert.IsType<ActionResult<SiteManager>>(result);
                 var model = Assert.IsType<SiteManager>(viewResult.Value);
 
-                Assert.Equal("EMP1", model.StaffId);
+                Assert.Equal(SITE_MANAGER_ID, model.StaffId);
             }
         }
+
         [Fact]
         public async Task Should_not_return_SiteManager_when_unavailable()
         {
+            const string SITE_MANAGER_ID = "EMP100";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 SiteManagersController siteManagersController = new SiteManagersController(context);
 
-                var result = await siteManagersController.GetSiteManager("EMP100");
+                var result = await siteManagersController.GetSiteManager(SITE_MANAGER_ID);
 
                 var viewResult = Assert.IsType<ActionResult<SiteManager>>(result);
                 Assert.IsNotType<SiteManager>(viewResult.Value);
@@ -63,14 +69,20 @@ namespace procurement_system_rest_test
                 Assert.Equal(404, response.StatusCode);
             }
         }
+
         [Fact]
         public async Task Can_add_new_SiteManager_when_it_not_existing()
         {
+            const string SITE_MANAGER_ID = "EMP4";
+            const string FIRST_NAME = "First Name";
+            const string LAST_NAME = "Last Name";
+            const string MOBILE = "0718958874";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 SiteManagersController siteManagersController = new SiteManagersController(context);
 
-                SiteManager siteManager = new SiteManager { StaffId = "EMP4", FirstName = "FirstName", LastName = "LastName", MobileNo = "0718958874" };
+                SiteManager siteManager = new SiteManager { StaffId = SITE_MANAGER_ID, FirstName = FIRST_NAME, LastName = LAST_NAME, MobileNo = MOBILE };
 
                 var result = await siteManagersController.PostSiteManager(siteManager);
 
@@ -84,11 +96,16 @@ namespace procurement_system_rest_test
         [Fact]
         public async Task Cannot_add_SiteManager_when_it_already_exists()
         {
+            const string SITE_MANAGER_ID = "EMP1";
+            const string FIRST_NAME = "First Name";
+            const string LAST_NAME = "Last Name";
+            const string MOBILE = "0718958874";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 SiteManagersController siteManagersController = new SiteManagersController(context);
 
-                SiteManager siteManager = new SiteManager { StaffId = "EMP1", FirstName = "FirstName", LastName = "LastName", MobileNo = "0718956874" };
+                SiteManager siteManager = new SiteManager { StaffId = SITE_MANAGER_ID, FirstName = FIRST_NAME, LastName = LAST_NAME, MobileNo = MOBILE }; ;
 
                 try
                 {
@@ -103,29 +120,35 @@ namespace procurement_system_rest_test
                 Assert.True(false);
             }
         }
+
         [Fact]
         public async Task Can_delete_SiteManager_by_Id()
         {
+            const string SITE_MANAGER_ID = "EMP1";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 SiteManagersController siteManagersController = new SiteManagersController(context);
 
-                var result = await siteManagersController.DeleteSiteManager("EMP1");
+                var result = await siteManagersController.DeleteSiteManager(SITE_MANAGER_ID);
 
                 var viewResult = Assert.IsType<ActionResult<SiteManager>>(result);
                 var model = Assert.IsType<SiteManager>(viewResult.Value);
 
-                Assert.Equal("EMP1", model.StaffId);
+                Assert.Equal(SITE_MANAGER_ID, model.StaffId);
             }
         }
+
         [Fact]
         public async Task Cannot_delete_SiteManager_when_it_not_existing()
         {
+            const string SITE_MANAGER_ID = "EMP100";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 SiteManagersController siteManagersController = new SiteManagersController(context);
 
-                var result = await siteManagersController.DeleteSiteManager("EMP100");
+                var result = await siteManagersController.DeleteSiteManager(SITE_MANAGER_ID);
 
                 var viewResult = Assert.IsType<ActionResult<SiteManager>>(result);
                 Assert.IsNotType<SiteManager>(viewResult.Value);
@@ -133,8 +156,5 @@ namespace procurement_system_rest_test
                 Assert.Equal(404, response.StatusCode);
             }
         }
-
-
-
     }
 }

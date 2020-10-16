@@ -105,6 +105,9 @@ namespace procurement_system_rest_test
                 context.Add(enquiry2);
                 context.Add(enquiry3);
 
+                var delivery1 = new Delivery { DeliveryId = "DL001", OnSiteDelivery = true, DeliveryStatus = "On Process", IsFullDelivery = true, Site = site1, PurchaseOrder = order1 };
+                context.Deliveries.Add(delivery1);
+
                 context.SaveChanges();
             }
         }
