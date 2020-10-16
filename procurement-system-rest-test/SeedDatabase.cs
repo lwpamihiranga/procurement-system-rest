@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using procurement_system_rest_api;
-using procurement_system_rest_api.DTOs;
 using procurement_system_rest_api.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace procurement_system_rest_test
 {
