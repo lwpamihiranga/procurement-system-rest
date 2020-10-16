@@ -8,8 +8,8 @@ namespace procurement_system_rest_api.Models
         public string StaffId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string WorkNo { get; set; } // int -> string
-        public string HomeNo { get; set; } // int -> string
-        public string MobileNo { get; set; } // int -> string
+        public string WorkNo { get; set; }
+        public string HomeNo { get; set; }
+        public string MobileNo { get; set; }
     }
 }

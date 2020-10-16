@@ -8,7 +8,7 @@ namespace procurement_system_rest_api.Models
         [Key]
         public string SiteCode { get; set; }
         public string SiteName { get; set; }
-        public SiteManager SiteManager { get; set; } // string SiteManagerId -> SiteManager SiteManager
+        public SiteManager SiteManager { get; set; } 
         public string SiteAddress { get; set; }
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
