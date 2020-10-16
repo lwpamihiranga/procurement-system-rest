@@ -29,7 +29,10 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Supplier>> GetSupplier(string id)
         {
-            var supplier = await _context.Supplier.FindAsync(id);
+            var supplier = await _context.Supplier
+                                    .Include(e => e.ItemSuppliers)
+                                    .ThenInclude(e => e.Item)
+                                    .FirstOrDefaultAsync(e => e.SupplierCode == id);
 
             if (supplier == null)
             {
