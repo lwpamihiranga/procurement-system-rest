@@ -41,6 +41,10 @@ namespace procurement_system_rest_test
 
                 context.Sites.Add(new Site { SiteCode = "SITE001", SiteName = "SLIIT Campus Site", SiteAddress = "Malabe", Description = "Malabe SLIIT Campus working site", SiteOfficeNo = "0115489657", SiteManager = manager1 });
 
+                context.Supplier.Add(new Supplier { SupplierCode = "SP1", SupplierName = "MAS Holdings", Address1 = "Colombo 3", CompanyNo = "011548795", MobileNo = "077485698", Email = "supplier@mas.com"  });
+                context.Supplier.Add(new Supplier { SupplierCode = "SP2", SupplierName = "MAS Holdings", Address1 = "Colombo 3", CompanyNo = "011548795", MobileNo = "077485698", Email = "supplier@mas.com"  });
+                context.Supplier.Add(new Supplier { SupplierCode = "SP3", SupplierName = "MAS Holdings", Address1 = "Colombo 3", CompanyNo = "011548795", MobileNo = "077485698", Email = "supplier@mas.com"  });
+
                 context.SaveChanges();
             }
         }
