@@ -98,6 +98,13 @@ namespace procurement_system_rest_test
                 context.Add(orderItems2);
                 context.Add(orderItems3);
 
+                var enquiry1 = new Enquiry { EnquiryId = 1, Description = "Why order is late?", EnquiryStatus = "Pending", OrderReference = order1, SiteManager = manager1 };       
+                var enquiry2 = new Enquiry { EnquiryId = 2, Description = "Why order is late?", EnquiryStatus = "Pending", OrderReference = order1, SiteManager = manager1 };       
+                var enquiry3 = new Enquiry { EnquiryId = 3, Description = "Why order is late?", EnquiryStatus = "Pending", OrderReference = order1, SiteManager = manager1 };
+                context.Add(enquiry1);
+                context.Add(enquiry2);
+                context.Add(enquiry3);
+
                 context.SaveChanges();
             }
         }

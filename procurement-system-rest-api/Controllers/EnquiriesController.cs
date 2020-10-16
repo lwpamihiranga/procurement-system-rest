@@ -33,7 +33,10 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Enquiry>> GetEnquiry(int id)
         {
-            var enquiry = await _context.Enquiries.FindAsync(id);
+            var enquiry = await _context.Enquiries
+                                    .Include(e => e.OrderReference)
+                                    .Include(e => e.SiteManager)
+                                    .FirstOrDefaultAsync(e => e.EnquiryId == id);
 
             if (enquiry == null)
             {
