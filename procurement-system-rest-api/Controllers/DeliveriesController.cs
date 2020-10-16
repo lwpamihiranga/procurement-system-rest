@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using procurement_system_rest_api.DTOs;
+using procurement_system_rest_api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using procurement_system_rest_api;
-using procurement_system_rest_api.DTOs;
-using procurement_system_rest_api.Models;
 
 namespace procurement_system_rest_api.Controllers
 {
