@@ -8,6 +8,7 @@ namespace procurement_system_rest_api.Models
         public string DeliveryId { get; set; }
         public string DeliveryMethod { get; set; }
         public bool OnSiteDelivery { get; set; } 
+        public Site Site { get; set; }
         public PurchaseOrder PurchaseOrder { get; set; }
         public string DeliveryStatus { get; set; }
         public double PayableAmount { get; set; }
