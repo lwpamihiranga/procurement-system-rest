@@ -46,8 +46,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // PUT: api/Invoices/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutInvoice(string id, Invoice invoice)
         {
@@ -78,8 +76,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // POST: api/Invoices
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<Invoice>> PostInvoice(InvoiceDTO invoiceDTO)
         {

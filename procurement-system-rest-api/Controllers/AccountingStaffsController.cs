@@ -40,8 +40,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // PUT: api/AccountingStaffs/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAccountingStaff(string id, AccountingStaff accountingStaff)
         {
@@ -72,8 +70,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // POST: api/AccountingStaffs
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<AccountingStaff>> PostAccountingStaff(AccountingStaff accountingStaff)
         {

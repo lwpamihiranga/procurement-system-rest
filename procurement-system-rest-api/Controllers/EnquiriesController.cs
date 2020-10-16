@@ -44,8 +44,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // PUT: api/Enquiries/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEnquiry(int id, Enquiry enquiry)
         {
@@ -76,8 +74,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // POST: api/Enquiries
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<Enquiry>> PostEnquiry(EnquiryDTO enquiryDTO)
         {

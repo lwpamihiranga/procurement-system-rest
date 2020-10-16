@@ -40,8 +40,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // PUT: api/SiteManagers/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSiteManager(string id, SiteManager siteManager)
         {
@@ -72,8 +70,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // POST: api/SiteManagers
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<SiteManager>> PostSiteManager(SiteManager siteManager)
         {

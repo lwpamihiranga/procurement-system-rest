@@ -55,8 +55,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // PUT: api/PurchaseOrders/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPurchaseOrder(int id, PurchaseOrder purchaseOrder)
         {
@@ -90,8 +88,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // POST: api/PurchaseOrders
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<PurchaseOrder>> PostPurchaseOrder(PurchaseOrderDTO purchaseOrderDTO)
         {

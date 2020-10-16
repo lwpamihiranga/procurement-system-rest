@@ -41,8 +41,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // PUT: api/Sites/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSite(string id, Site site)
         {
@@ -50,8 +48,6 @@ namespace procurement_system_rest_api.Controllers
             {
                 return BadRequest();
             }
-
-            //_context.Entry(site).State = EntityState.Modified;
 
             Site Site = _context.Sites.FirstOrDefault(e => e.SiteCode == id);
             SiteManager SiteManager = _context.SiteManagers.FirstOrDefault(e => e.StaffId == site.SiteManager.StaffId);
@@ -77,8 +73,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // POST: api/Sites
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<Site>> PostSite(SiteDTO siteDTO)
         {
