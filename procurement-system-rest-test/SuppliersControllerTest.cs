@@ -145,7 +145,6 @@ namespace procurement_system_rest_test
                 var response = Assert.IsType<NotFoundResult>(viewResult.Result);
                 Assert.Equal(404, response.StatusCode);
             }
-
         }
     }
 }

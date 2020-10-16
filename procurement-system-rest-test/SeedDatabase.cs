@@ -41,9 +41,24 @@ namespace procurement_system_rest_test
 
                 context.Sites.Add(new Site { SiteCode = "SITE001", SiteName = "SLIIT Campus Site", SiteAddress = "Malabe", Description = "Malabe SLIIT Campus working site", SiteOfficeNo = "0115489657", SiteManager = manager1 });
 
-                context.Supplier.Add(new Supplier { SupplierCode = "SP1", SupplierName = "MAS Holdings", Address1 = "Colombo 3", CompanyNo = "011548795", MobileNo = "077485698", Email = "supplier@mas.com"  });
+                var supplier1 = new Supplier { SupplierCode = "SP1", SupplierName = "MAS Holdings", Address1 = "Colombo 3", CompanyNo = "011548795", MobileNo = "077485698", Email = "supplier@mas.com" };
+
+                context.Supplier.Add(supplier1);
                 context.Supplier.Add(new Supplier { SupplierCode = "SP2", SupplierName = "MAS Holdings", Address1 = "Colombo 3", CompanyNo = "011548795", MobileNo = "077485698", Email = "supplier@mas.com"  });
                 context.Supplier.Add(new Supplier { SupplierCode = "SP3", SupplierName = "MAS Holdings", Address1 = "Colombo 3", CompanyNo = "011548795", MobileNo = "077485698", Email = "supplier@mas.com"  });
+
+                var item1 = new Item { ItemId = "IT001", ItemName = "Roofing Sheets", ItemPrice = 200.20, Description = "Roof sheets" };
+                var item2 = new Item { ItemId = "IT002", ItemName = "Roofing Sheets", ItemPrice = 200.20, Description = "Roof sheets" };
+                var item3 = new Item { ItemId = "IT003", ItemName = "Roofing Sheets", ItemPrice = 200.20, Description = "Roof sheets" };
+                context.Items.Add(item1);
+                context.Items.Add(item2);
+                context.Items.Add(item3);
+                var itemSupplier1 = new ItemSuppliers { Item = item1, Supplier = supplier1 };
+                var itemSupplier2 = new ItemSuppliers { Item = item2, Supplier = supplier1 };
+                var itemSupplier3 = new ItemSuppliers { Item = item3, Supplier = supplier1 };
+                context.Add(itemSupplier1);
+                context.Add(itemSupplier2);
+                context.Add(itemSupplier3);
 
                 context.SaveChanges();
             }
