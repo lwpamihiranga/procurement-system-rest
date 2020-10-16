@@ -1,12 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using procurement_system_rest_api.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using procurement_system_rest_api;
-using procurement_system_rest_api.Models;
 
 namespace procurement_system_rest_api.Controllers
 {
@@ -43,8 +40,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // PUT: api/SiteManagers/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSiteManager(string id, SiteManager siteManager)
         {
@@ -75,8 +70,6 @@ namespace procurement_system_rest_api.Controllers
         }
 
         // POST: api/SiteManagers
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<SiteManager>> PostSiteManager(SiteManager siteManager)
         {

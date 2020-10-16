@@ -5,7 +5,6 @@ using procurement_system_rest_api.Controllers;
 using procurement_system_rest_api.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -13,7 +12,7 @@ namespace procurement_system_rest_test
 {
     public class ManagementStaffTest: SeedDatabase
     {
-        public ManagementStaffTest(): base(
+        public ManagementStaffTest() : base(
             new DbContextOptionsBuilder<ProcurementDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options)
@@ -38,27 +37,31 @@ namespace procurement_system_rest_test
         [Fact]
         public async Task Can_get_ManagementStaff_By_Id()
         {
+            const string MANAGEMENT_STAFF_ID = "EMP11";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
 
-                var result = await managementStaffsController.GetManagementStaff("EMP11");
+                var result = await managementStaffsController.GetManagementStaff(MANAGEMENT_STAFF_ID);
 
                 var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
                 var model = Assert.IsType<ManagementStaff>(viewResult.Value);
 
-                Assert.Equal("EMP11", model.StaffId);
+                Assert.Equal(MANAGEMENT_STAFF_ID, model.StaffId);
             }
         }
 
         [Fact]
         public async Task Should_not_return_ManagementStaff_when_unavailable()
         {
+            const string MANAGEMENT_STAFF_ID = "EMP100";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
 
-                var result = await managementStaffsController.GetManagementStaff("EMP100");
+                var result = await managementStaffsController.GetManagementStaff(MANAGEMENT_STAFF_ID);
 
                 var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
                 Assert.IsNotType<ManagementStaff>(viewResult.Value);
@@ -70,29 +73,39 @@ namespace procurement_system_rest_test
         [Fact]
         public async Task Can_add_new_ManagementStaff_when_it_not_existing()
         {
+            const string MANAGEMENT_STAFF_ID = "EMP14";
+            const string FIRST_NAME = "First Name";
+            const string LAST_NAME = "Last Name";
+            const string MOBILE = "0718958874";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
 
-                ManagementStaff managementStaff = new ManagementStaff { StaffId = "EMP14", FirstName = "FirstName", LastName = "LastName", MobileNo = "0718956874" };
+                ManagementStaff managementStaff = new ManagementStaff { StaffId = MANAGEMENT_STAFF_ID, FirstName = FIRST_NAME, LastName = LAST_NAME, MobileNo = MOBILE };
 
                 var result = await managementStaffsController.PostManagementStaff(managementStaff);
 
                 var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
                 var actionResult = Assert.IsType<CreatedAtActionResult>(viewResult.Result);
                 var model = Assert.IsType<ManagementStaff>(actionResult.Value);
-                Assert.Equal("EMP14", model.StaffId);
+                Assert.Equal(MANAGEMENT_STAFF_ID, model.StaffId);
             }
         }
 
         [Fact]
         public async Task Cannot_add_ManagementStaff_when_it_already_exists()
         {
+            const string MANAGEMENT_STAFF_ID = "EMP11";
+            const string FIRST_NAME = "First Name";
+            const string LAST_NAME = "Last Name";
+            const string MOBILE = "0718958874";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
 
-                ManagementStaff managementStaff = new ManagementStaff { StaffId = "EMP11", FirstName = "FirstName", LastName = "LastName", MobileNo = "0718956874" };
+                ManagementStaff managementStaff = new ManagementStaff { StaffId = MANAGEMENT_STAFF_ID, FirstName = FIRST_NAME, LastName = LAST_NAME, MobileNo = MOBILE };
 
                 try
                 {
@@ -111,27 +124,31 @@ namespace procurement_system_rest_test
         [Fact]
         public async Task Can_delete_ManagementStaff_by_Id()
         {
+            const string MANAGEMENT_STAFF_ID = "EMP11";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
 
-                var result = await managementStaffsController.DeleteManagementStaff("EMP11");
+                var result = await managementStaffsController.DeleteManagementStaff(MANAGEMENT_STAFF_ID);
 
                 var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
                 var model = Assert.IsType<ManagementStaff>(viewResult.Value);
 
-                Assert.Equal("EMP11", model.StaffId);
+                Assert.Equal(MANAGEMENT_STAFF_ID, model.StaffId);
             }
         }
 
         [Fact]
         public async Task Cannot_delete_ManagementStaff_when_it_not_existing()
         {
+            const string MANAGEMENT_STAFF_ID = "EMP100";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
 
-                var result = await managementStaffsController.DeleteManagementStaff("EMP100");
+                var result = await managementStaffsController.DeleteManagementStaff(MANAGEMENT_STAFF_ID);
 
                 var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
                 Assert.IsNotType<ManagementStaff>(viewResult.Value);

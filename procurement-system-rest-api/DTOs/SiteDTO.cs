@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace procurement_system_rest_api.DTOs
+﻿namespace procurement_system_rest_api.DTOs
 {
     public class SiteDTO
     {
