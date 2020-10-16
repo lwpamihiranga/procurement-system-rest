@@ -22,14 +22,24 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SiteManager>>> GetSiteManagers()
         {
-            return await _context.SiteManagers.Include(e => e.SiteList).Include(e => e.PurchaseRequisitionsMade).Include(e => e.PurchaseOrdersMade).ToListAsync();
+            return await _context.SiteManagers
+                            .Include(e => e.SiteList)
+                            .Include(e => e.PurchaseRequisitionsMade)
+                            .Include(e => e.PurchaseOrdersMade)
+                            .Include(e => e.Enquiries)
+                            .ToListAsync();
         }
 
         // GET: api/SiteManagers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SiteManager>> GetSiteManager(string id)
         {
-            var siteManager = await _context.SiteManagers.FindAsync(id);
+            var siteManager = await _context.SiteManagers
+                 .Include(e => e.SiteList)
+                            .Include(e => e.PurchaseRequisitionsMade)
+                            .Include(e => e.PurchaseOrdersMade)
+                            .Include(e => e.Enquiries)
+                            .FirstOrDefaultAsync(e => e.StaffId == id);
 
             if (siteManager == null)
             {
