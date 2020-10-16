@@ -18,6 +18,7 @@ namespace procurement_system_rest_test
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options)
         { }
+
         [Fact]
         public async Task Can_get_all_AccountingStaff_in_database()
         {
@@ -34,28 +35,34 @@ namespace procurement_system_rest_test
             }
         }
         [Fact]
+
         public async Task Can_get_AccountingStaff_By_Id()
         {
+            const string ACCOUNTING_STAFF_ID = "EMP21";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 AccountingStaffsController accountingStaffsController = new AccountingStaffsController(context);
 
-                var result = await accountingStaffsController.GetAccountingStaff("EMP21");
+                var result = await accountingStaffsController.GetAccountingStaff(ACCOUNTING_STAFF_ID);
 
                 var viewResult = Assert.IsType<ActionResult<AccountingStaff>>(result);
                 var model = Assert.IsType<AccountingStaff>(viewResult.Value);
 
-                Assert.Equal("EMP21", model.StaffId);
+                Assert.Equal(ACCOUNTING_STAFF_ID, model.StaffId);
             }
         }
+
         [Fact]
         public async Task Should_not_return_AccountingStaff_when_unavailable()
         {
+            const string ACCOUNTING_STAFF_ID = "EMP100";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 AccountingStaffsController accountingStaffsController = new AccountingStaffsController(context);
 
-                var result = await accountingStaffsController.GetAccountingStaff("EMP100");
+                var result = await accountingStaffsController.GetAccountingStaff(ACCOUNTING_STAFF_ID);
 
                 var viewResult = Assert.IsType<ActionResult<AccountingStaff>>(result);
                 Assert.IsNotType<AccountingStaff>(viewResult.Value);
@@ -63,31 +70,43 @@ namespace procurement_system_rest_test
                 Assert.Equal(404, response.StatusCode);
             }
         }
+
         [Fact]
         public async Task Can_add_new_AccountingStaff_when_it_not_existing()
         {
+            const string ACCOUNTING_STAFF_ID = "EMP24";
+            const string FIRST_NAME = "First Name";
+            const string LAST_NAME = "Last Name";
+            const string MOBILE = "0718958874";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 AccountingStaffsController accountingStaffsController = new AccountingStaffsController(context);
 
-                AccountingStaff accountingStaff = new AccountingStaff { StaffId = "EMP24", FirstName = "FirstName", LastName = "LastName", MobileNo = "0718956874" };
+                AccountingStaff accountingStaff = new AccountingStaff { StaffId = ACCOUNTING_STAFF_ID, FirstName = FIRST_NAME, LastName = LAST_NAME, MobileNo = MOBILE };
 
                 var result = await accountingStaffsController.PostAccountingStaff(accountingStaff);
 
                 var viewResult = Assert.IsType<ActionResult<AccountingStaff>>(result);
                 var actionResult = Assert.IsType<CreatedAtActionResult>(viewResult.Result);
                 var model = Assert.IsType<AccountingStaff>(actionResult.Value);
-                Assert.Equal("EMP24", model.StaffId);
+                Assert.Equal(ACCOUNTING_STAFF_ID, model.StaffId);
             }
         }
+
         [Fact]
         public async Task Cannot_add_AccountingStaff_when_it_already_exists()
         {
+            const string ACCOUNTING_STAFF_ID = "EMP21";
+            const string FIRST_NAME = "First Name";
+            const string LAST_NAME = "Last Name";
+            const string MOBILE = "0718958874";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 AccountingStaffsController accountingStaffsController = new AccountingStaffsController(context);
 
-                AccountingStaff accountingStaff = new AccountingStaff { StaffId = "EMP21", FirstName = "FirstName", LastName = "LastName", MobileNo = "0718956874" };
+                AccountingStaff accountingStaff = new AccountingStaff { StaffId = ACCOUNTING_STAFF_ID, FirstName = FIRST_NAME, LastName = LAST_NAME, MobileNo = MOBILE };
 
                 try
                 {
@@ -102,29 +121,35 @@ namespace procurement_system_rest_test
                 Assert.True(false);
             }
         }
+
         [Fact]
         public async Task Can_delete_AccountingStaff_by_Id()
         {
+            const string ACCOUNTING_STAFF_ID = "EMP21";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 AccountingStaffsController accountingStaffsController = new AccountingStaffsController(context);
 
-                var result = await accountingStaffsController.DeleteAccountingStaff("EMP21");
+                var result = await accountingStaffsController.DeleteAccountingStaff(ACCOUNTING_STAFF_ID);
 
                 var viewResult = Assert.IsType<ActionResult<AccountingStaff>>(result);
                 var model = Assert.IsType<AccountingStaff>(viewResult.Value);
 
-                Assert.Equal("EMP21", model.StaffId);
+                Assert.Equal(ACCOUNTING_STAFF_ID, model.StaffId);
             }
         }
+
         [Fact]
         public async Task Cannot_delete_AccountingStaff_when_it_not_existing()
         {
+            const string ACCOUNTING_STAFF_ID = "EMP100";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 AccountingStaffsController accountingStaffsController = new AccountingStaffsController(context);
 
-                var result = await accountingStaffsController.DeleteAccountingStaff("EMP100");
+                var result = await accountingStaffsController.DeleteAccountingStaff(ACCOUNTING_STAFF_ID);
 
                 var viewResult = Assert.IsType<ActionResult<AccountingStaff>>(result);
                 Assert.IsNotType<AccountingStaff>(viewResult.Value);
@@ -132,8 +157,5 @@ namespace procurement_system_rest_test
                 Assert.Equal(404, response.StatusCode);
             }
         }
-
-
-
     }
 }

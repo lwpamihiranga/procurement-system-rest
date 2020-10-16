@@ -74,29 +74,39 @@ namespace procurement_system_rest_test
         [Fact]
         public async Task Can_add_new_ManagementStaff_when_it_not_existing()
         {
+            const string MANAGEMENT_STAFF_ID = "EMP14";
+            const string FIRST_NAME = "First Name";
+            const string LAST_NAME = "Last Name";
+            const string MOBILE = "0718958874";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
 
-                ManagementStaff managementStaff = new ManagementStaff { StaffId = "EMP14", FirstName = "FirstName", LastName = "LastName", MobileNo = "0718956874" };
+                ManagementStaff managementStaff = new ManagementStaff { StaffId = MANAGEMENT_STAFF_ID, FirstName = FIRST_NAME, LastName = LAST_NAME, MobileNo = MOBILE };
 
                 var result = await managementStaffsController.PostManagementStaff(managementStaff);
 
                 var viewResult = Assert.IsType<ActionResult<ManagementStaff>>(result);
                 var actionResult = Assert.IsType<CreatedAtActionResult>(viewResult.Result);
                 var model = Assert.IsType<ManagementStaff>(actionResult.Value);
-                Assert.Equal("EMP14", model.StaffId);
+                Assert.Equal(MANAGEMENT_STAFF_ID, model.StaffId);
             }
         }
 
         [Fact]
         public async Task Cannot_add_ManagementStaff_when_it_already_exists()
         {
+            const string MANAGEMENT_STAFF_ID = "EMP11";
+            const string FIRST_NAME = "First Name";
+            const string LAST_NAME = "Last Name";
+            const string MOBILE = "0718958874";
+
             using (var context = new ProcurementDbContext(ContextOptions))
             {
                 ManagementStaffsController managementStaffsController = new ManagementStaffsController(context);
 
-                ManagementStaff managementStaff = new ManagementStaff { StaffId = "EMP11", FirstName = "FirstName", LastName = "LastName", MobileNo = "0718956874" };
+                ManagementStaff managementStaff = new ManagementStaff { StaffId = MANAGEMENT_STAFF_ID, FirstName = FIRST_NAME, LastName = LAST_NAME, MobileNo = MOBILE };
 
                 try
                 {
