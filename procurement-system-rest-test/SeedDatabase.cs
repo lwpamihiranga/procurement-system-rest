@@ -62,7 +62,16 @@ namespace procurement_system_rest_test
                 context.Add(itemSupplier2);
                 context.Add(itemSupplier3);
 
-                var requisition1 = new PurchaseRequisition { RequisitionNo = 1, ShippingAddress = "Malabe", TotalCost = 2000.00, Status = "Pending", SiteManager = manager1, Supplier = supplier1, Site = site1 };
+                var requisition1 = new PurchaseRequisition 
+                { 
+                    RequisitionNo = 1, 
+                    ShippingAddress = "Malabe", 
+                    TotalCost = 2000.00, 
+                    Status = "Pending", 
+                    SiteManager = manager1,
+                    Supplier = supplier1, 
+                    Site = site1 
+                };
                 context.PurchaseRequisitions.Add(requisition1);
                 var requisitionItem1 = new PurchaseRequisitionItems { Item = item1, PurchaseRequisition = requisition1, ItemCount = 3 };
                 var requisitionItem2 = new PurchaseRequisitionItems { Item = item2, PurchaseRequisition = requisition1, ItemCount = 2 };
@@ -70,6 +79,24 @@ namespace procurement_system_rest_test
                 context.Add(requisitionItem1);
                 context.Add(requisitionItem2);
                 context.Add(requisitionItem3);
+
+                var order1 = new PurchaseOrder
+                {
+                    OrderReference = 1,
+                    ShippingAddress = "Malabe",
+                    TotalCost = 2000.00,
+                    OrderStatus = "IN PROCESS",
+                    SiteManager = manager1,
+                    Supplier = supplier1,
+                    Site = site1
+                };
+                context.PurchaseOrders.Add(order1);
+                var orderItems1 = new PurchaseOrderItems { Item = item1, PurchaseOrder = order1, ItemCount = 3 };
+                var orderItems2 = new PurchaseOrderItems { Item = item2, PurchaseOrder = order1, ItemCount = 2 };
+                var orderItems3 = new PurchaseOrderItems { Item = item3, PurchaseOrder = order1, ItemCount = 1 };
+                context.Add(orderItems1);
+                context.Add(orderItems2);
+                context.Add(orderItems3);
 
                 context.SaveChanges();
             }
