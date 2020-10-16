@@ -72,7 +72,7 @@ namespace procurement_system_rest_test
         }
 
         [Fact]
-        public async Task Can_add_Requisition_when_it_not_existing()
+        public async Task Can_add_Requisition()
         {
             const int REQUISITION = 3;
             const string SITE_MANAGER_ID = "EMP1";

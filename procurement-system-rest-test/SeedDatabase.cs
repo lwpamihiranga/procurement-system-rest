@@ -108,6 +108,9 @@ namespace procurement_system_rest_test
                 var delivery1 = new Delivery { DeliveryId = "DL001", OnSiteDelivery = true, DeliveryStatus = "On Process", IsFullDelivery = true, Site = site1, PurchaseOrder = order1 };
                 context.Deliveries.Add(delivery1);
 
+                var goodsReceipt1 = new GoodsReceipt { ReceiptId = 1, PurchaseOrder = order1, Supplier = supplier1, Site = site1, Delivery = delivery1 };
+                context.GoodsReceipt.Add(goodsReceipt1);
+
                 context.SaveChanges();
             }
         }

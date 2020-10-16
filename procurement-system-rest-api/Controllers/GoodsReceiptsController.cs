@@ -38,7 +38,12 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GoodsReceipt>> GetGoodsReceipt(int id)
         {
-            var goodsReceipt = await _context.GoodsReceipt.FindAsync(id);
+            var goodsReceipt = await _context.GoodsReceipt
+                                        .Include(e => e.PurchaseOrder)
+                                        .Include(e => e.Supplier)
+                                        .Include(e => e.Site)
+                                        .Include(e => e.Delivery)
+                                        .FirstOrDefaultAsync(e => e.ReceiptId == id);
 
             if (goodsReceipt == null)
             {
