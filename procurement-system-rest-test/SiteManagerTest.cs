@@ -89,7 +89,7 @@ namespace procurement_system_rest_test
                 var viewResult = Assert.IsType<ActionResult<SiteManager>>(result);
                 var actionResult = Assert.IsType<CreatedAtActionResult>(viewResult.Result);
                 var model = Assert.IsType<SiteManager>(actionResult.Value);
-                Assert.Equal("EMP4", model.StaffId);
+                Assert.Equal(SITE_MANAGER_ID, model.StaffId);
             }
         }
 
