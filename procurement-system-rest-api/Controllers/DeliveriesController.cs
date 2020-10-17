@@ -24,14 +24,20 @@ namespace procurement_system_rest_api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Delivery>>> GetDeliveries()
         {
-            return await _context.Deliveries.Include(e => e.PurchaseOrder).Include(e => e.Site).ToListAsync();
+            return await _context.Deliveries
+                            .Include(e => e.PurchaseOrder)
+                            .Include(e => e.Site)
+                            .ToListAsync();
         }
 
         // GET: api/Deliveries/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Delivery>> GetDelivery(string id)
         {
-            var delivery = await _context.Deliveries.FindAsync(id);
+            var delivery = await _context.Deliveries
+                                    .Include(e => e.PurchaseOrder)
+                                    .Include(e => e.Site)
+                                    .FirstOrDefaultAsync(e => e.DeliveryId == id);
 
             if (delivery == null)
             {

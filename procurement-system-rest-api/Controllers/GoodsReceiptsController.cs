@@ -37,6 +37,8 @@ namespace procurement_system_rest_api.Controllers
         {
             var goodsReceipt = await _context.GoodsReceipt
                                         .Include(e => e.PurchaseOrder)
+                                        .ThenInclude(e => e.PurchaseOrderItems)
+                                        .ThenInclude(e => e.Item)
                                         .Include(e => e.Supplier)
                                         .Include(e => e.Site)
                                         .Include(e => e.Delivery)
