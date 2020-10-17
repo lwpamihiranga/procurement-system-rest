@@ -4,7 +4,7 @@
     {
         public string DeliveryId { get; set; }
         public string DeliveryMethod { get; set; }
-        public bool OnSiteDelivery { get; set; } //Boolean -> bool
+        public bool OnSiteDelivery { get; set; }
         public string SiteCode { get; set; }  
         public int PurchaseOrder { get; set; }
         public string DeliveryStatus { get; set; }
